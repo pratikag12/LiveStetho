@@ -22,14 +22,49 @@ namespace LiveStethscope
     /// </summary>
     public partial class MainWindow : Window
     {
+
+        DataClass Dataset;
         public MainWindow()
         {
-            InitializeComponent();
+           InitializeComponent();
+            Dataset = new DataClass()
+            {
+            SeriesCllection = new SeriesCollection()
+            {
+                new LineSeries()
+                {
+                    Values = new ChartValues<double> { 3, 5, 7, 4 , 3, 5, 7, 4 , 3, 5, 7, 4 , 3, 5, 7, 4 , 3, 5, 7, 4 , 3, 5, 7, 4 }
+                },
+            }
+        };
+
+           this.DataContext = Dataset;
         }
 
-        private void button_Click(object sender, RoutedEventArgs e)
+        private void btnStream_Click(object sender, RoutedEventArgs e)
         {
+            Console.WriteLine("Plotting Data");
+            Dataset.SeriesCllection.Add(new ColumnSeries() { Values = new ChartValues<int> { 3, 12, 2, 3, 4, 1, 1, 2 } });
 
+            //SoundGraph.Series = SeriesCllection;
+            //CartesianChart chart = new CartesianChart();
+            //chart.Series = SeriesCllection;
+            //chart.AddToView(this);
+
+            // CartesianChart.VisualElementsProperty = SeriesCollection;
+        }
+
+
+
+
+        private void btnStream_MouseEnter(object sender, MouseEventArgs e)
+        {
+            btnStream.Content = "Clickme";
+        }
+
+        private void btnStream_MouseLeave(object sender, MouseEventArgs e)
+        {
+            btnStream.Content = "Stream";
         }
     }
 }
